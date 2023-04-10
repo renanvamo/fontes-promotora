@@ -1,17 +1,39 @@
 const projectRouter = require('express').Router();
 const projectsController = require('../controller/projects');
-const checkMiddleware = require('../middlewares/checkUsername');
+const validations = require('../middlewares/validations');
 
-projectRouter.post('/project', checkMiddleware.userExists, projectsController.createProject);
+projectRouter.post('/project',
+  validations.isValidProjectBody,
+  validations.userExists,
+  projectsController.createProject
+);
 
-projectRouter.get('/projects', projectsController.getAllProjectsByUser);
+projectRouter.get('/projects',
+  validations.userExists,
+  projectsController.getAllProjectsByUser
+);
 
-projectRouter.get('/project', projectsController.getProjectById);
+projectRouter.get('/project/:id', 
+  projectsController.getProjectById
+);
 
-projectRouter.put('/projects/:id', projectsController.updateProjectById)
+projectRouter.put('/projects/:id',
+  validations.isValidProjectBody,
+  validations.userExists,
+  validations.userIsOwnerOfProject,
+  projectsController.updateProjectById
+);
 
-projectRouter.patch('/projects/:id/done', projectsController.finalizeProjectById)
+projectRouter.patch('/projects/:id/done', 
+  validations.userExists,
+  validations.userIsOwnerOfProject,
+  projectsController.finalizeProjectById
+);
 
-projectRouter.delete('/projects/:id', projectsController.deleteProjectById)
+projectRouter.delete('/projects/:id',
+  validations.userExists,
+  validations.userIsOwnerOfProject,
+  projectsController.deleteProjectById
+);
 
 module.exports = projectRouter;
