@@ -2,7 +2,7 @@ const db = require('../database/connection.js');
 
 const createUser = async (body) => {
   const createUser = ({
-    text: 'INSERT INTO users (name, password, username) VALUES ($1, $2, $3) RETURNING id',
+    text: 'INSERT INTO users (name, password, username) VALUES ($1, $2, $3) RETURNING username',
     values: [body.name, body.password, body.username]
   });
 
