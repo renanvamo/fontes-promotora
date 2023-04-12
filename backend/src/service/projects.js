@@ -29,7 +29,7 @@ const getProjectById = async (req) => {
     id: project.id,
     title: project.title,
     city: local.localidade || "CEP Inválido",
-    UF: local.uf || "CEP Inválido",
+    uf: local.uf || "CEP Inválido",
     cost: project.cost,
     done: project.done,
     deadline: project.deadline,
