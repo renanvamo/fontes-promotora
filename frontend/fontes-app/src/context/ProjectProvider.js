@@ -1,8 +1,13 @@
-import React from 'react';
+import React, { useState } from 'react';
 import ProjectContext from './ProjectContext';
 
 function ProjectProvider({ children }) {
-  const args = {};
+  const [username, setUsername] = useState('');
+  const args = {
+    username,
+    setUsername,
+  };
+  
 
   return (
     <ProjectContext.Provider value={args}>{children}</ProjectContext.Provider>
